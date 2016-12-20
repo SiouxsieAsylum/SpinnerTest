@@ -34,8 +34,58 @@ class Gameboard
     board[marks] = sym
   end
 
-  def won?
-    #won 4 in a row diagonally, forwards to back, up to down
+  def available_moves(board)
+    avail_moves = []
+
+#from bottom up to ascertain where the token would "fall"
+  9.downto(0) do |idx|
+    board[idx].each_with_index do |x,i|
+      # adds x,y unless it already has a token in it
+        avail_moves << [idx,i] unless board[idx][i] != "-"
+    end
+  end
+
+  # unique y values only
+  avail_moves.uniq!{|move| move[1] }
+  avail_moves
+#drops token
+# comp_move = avail_moves.sample
+# board[comp_move[0]][comp_move[1]] = sym
+  end
+
+  def win(sym)
+
+  win = false
+
+    x_diff = 0
+    y_diff = 0
+
+    board.each_with_index do |x,i|
+      current_row = board[i]
+      next_row = board[i + 1]
+
+      if current_row.include?(sym)
+        if next_row.include?(sym)
+          x_diff += 1 if current_row.index(sym) > next_row.index(sym)
+            || current_row.index(sym) < next_row.index(sym)
+          y_diff += 1
+        else
+          x_diff = current_row.count(sym)
+        end
+      end
+    end
+
+
+    case
+      when x_diff.zero? && y_diff == 3
+        win = true
+      when x_diff == 4 && y_diff.zero?
+        win = true
+      when x_diff == 3 && y_diff == 3
+        win = true
+      else
+        win
+    end
   end
 
 end
@@ -58,18 +108,22 @@ class HumanPlayer
   end
 
   def get_move
-      puts "Enter coordinates x,y with a comma in between"
-       moves = []
+      puts "Enter your desired column"
+      column = nil
       begin
-        input = gets.chomp
-        move = input.split(",").map!{|n| n.to_i}
-          if move.any?{|i| i > 9 || i < 0}
+        column = gets.chomp
+          if column > 9 || column  < 0}
           puts "nope, not in range. Pick numbers from 0 to 9"
            raise
           end
       rescue
         retry
       end
+
+      #interpret column choice into move
+      slots = available_moves(board)
+      move = slots.select{|slot| slot[1] == column}.flatten!
+
       [move, sym]
   end
 
@@ -93,23 +147,13 @@ class Gameplay
   def take_turn
     display(board)
     p "Let us begin!"
-    begin
-      move = player.get_move
-       if board[move] == "-"
-         #will this work?
-
-         place_token(move,player.sym)
-       else
-         p "spot taken, pick another"
-         retry
-       end
-
-     end
+    move = player.get_move
+    place_token(move,player.sym)
     display(board)
   end
 
   def play
-    take_turn until board.won?
+    take_turn until board.win(sym)
     #if player wins, "congrats"
     #if player loses, "nice try bruh"
   end
