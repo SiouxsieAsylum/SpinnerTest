@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/sq2"
+        android:background="@color/postFocus"
+        android:onClick="imagePress"
+        android:layout_centerVertical="true"
+        android:nextFocusDown="@+id/sq3"
+        android:nextFocusUp="@+id/sq1"
+        android:nextFocusLeft="@+id/sq4"
+        android:nextFocusRight="@id/sq4">
+        <requestFocus />
+    </ImageView>
+
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="250dp"
+        android:background="@color/preFocus"
+        android:id="@id/sq4"
+        android:clickable="false"
+        android:layout_centerVertical="true"
+        android:nextFocusDown="@id/sq3"
+        android:nextFocusUp="@id/sq1"
+        android:nextFocusLeft="@id/sq2"
+        android:nextFocusRight="@id/sq2"
+        />
+
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="400dp"
+        android:background="@color/preFocus"
+        android:id="@id/sq3"
+        android:clickable="false"
+        android:layout_centerHorizontal="true"
+        android:nextFocusDown="@id/sq1"
+        android:nextFocusUp="@id/sq1"
+        android:nextFocusLeft="@id/sq2"
+        android:nextFocusRight="@id/sq4"
+        />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/preFocus"
+        android:id="@id/sq1"
+        android:clickable="false"
+        android:layout_centerHorizontal="true"
+        android:nextFocusDown="@id/sq3"
+        android:nextFocusUp="@id/sq3"
+        android:nextFocusLeft="@id/sq2"
+        android:nextFocusRight="@id/sq4">
+    </ImageView>
+
+</RelativeLayout>

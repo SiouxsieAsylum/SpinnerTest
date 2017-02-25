@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id = "@+id/ruby"
+        android:icon = "@drawable/ruby"
+        android:title = "ruby"/>
+        <!--android:title="These Words Should Not Be Here"/> -->
+
+    <item
+        android:id = "@+id/sapphire"
+        android:icon = "@drawable/sapphire"
+        android:title="sapphire"/>
+
+
+</menu>
